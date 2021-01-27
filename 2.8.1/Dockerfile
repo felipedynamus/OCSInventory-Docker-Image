@@ -1,4 +1,4 @@
-FROM centos:centos7
+FROM ubuntu:20.04
 
 LABEL maintainer="contact@ocsinventory-ng.org" \
       version="2.8.1" \
@@ -18,18 +18,18 @@ VOLUME /var/lib/ocsinventory-reports /etc/ocsinventory-server /usr/share/ocsinve
 
 WORKDIR /tmp
 
-RUN yum ${YUM_FLAGS} install wget \
+RUN apt-get install wget \
     curl \
-    yum-utils \
+    apt-utils \
     tar \
     make \
-    yum ${YUM_FLAGS} install epel-release ; \
+    apt-get install epel-release ; \
     wget https://dl.fedoraproject.org/pub/epel/epel-release-latest-7.noarch.rpm ; \
     wget http://rpms.remirepo.net/enterprise/remi-release-7.rpm ; \
     rpm -Uvh remi-release-7.rpm ; \
-    yum-config-manager --enable remi-php73 ; \
-    yum ${YUM_FLAGS} update ; \
-    yum ${YUM_FLAGS} install perl \
+    apt-config-manager --enable remi-php73 ; \
+    apt-get update ; \
+    apt-get install perl \
     perl-XML-Simple \
     perl-Compress-Zlib \
     perl-DBI perl-DBD-MySQL \
@@ -41,26 +41,26 @@ RUN yum ${YUM_FLAGS} install wget \
     perl-XML-Entities \
     perl-Switch \
     perl-Apache-DBI \
-    httpd \
-    php73-php \
-    php73-php-cli \
-    php73-php-cli \
-    php73-php-gd \
-    php73-php-imap \
-    php73-php-pdo \
-    php73-php-pear \
-    php73-php-mbstring \
-    php73-php-intl \
-    php73-php-mysqlnd \
-    php73-php-xml \
-    php73-php-xmlrpc \
-    php73-php-pecl-mysql \
-    php73-php-pecl-mcrypt \
-    php73-php-pecl-apcu \
-    php73-php-json \
-    php73-php-fpm \
-    php73-php-soap \
-    php73-php-opcache ;
+    Apache2 \
+    php74-php \
+    php74-php-cli \
+    php74-php-cli \
+    php74-php-gd \
+    php74-php-imap \
+    php74-php-pdo \
+    php74-php-pear \
+    php74-php-mbstring \
+    php74-php-intl \
+    php74-php-mysqlnd \
+    php74-php-xml \
+    php74-php-xmlrpc \
+    php74-php-pecl-mysql \
+    php74-php-pecl-mcrypt \
+    php74-php-pecl-apcu \
+    php74-php-json \
+    php74-php-fpm \
+    php74-php-soap \
+    php74-php-opcache ;
 
 RUN wget https://github.com/OCSInventory-NG/OCSInventory-ocsreports/releases/download/2.8.1/OCSNG_UNIX_SERVER_2.8.1.tar.gz && \
     tar xzf OCSNG_UNIX_SERVER_2.8.1.tar.gz ;
